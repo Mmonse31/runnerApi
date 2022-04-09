@@ -7,16 +7,16 @@ router.get('/', (req, res) => {
     });
 
 router.post('/searchFriend', (req, res) => {
-    const data = req.body;
-    const {email} = data;
+    const dataFriend = req.body;
+    const {email} = dataFriend;
     console.log(email);
     pool.query(`SELECT * FROM user WHERE email like "${email}%"`, (err, rows) => {
         console.log(rows);
             console.log(err);
         if (!err  && rows.length) {
-            res.status(200).send({message: 'Sesion Exitosa.', data: rows});
+            res.status(200).send({isAuth: true, message: 'Encontrado.', dataFriend: rows});
         } else {
-            res.status(500).send({message: 'Email  no son validos.'});
+            res.status(500).send({isAuth: false, message: 'Email  no son validos.'});
         }
     });
 });
