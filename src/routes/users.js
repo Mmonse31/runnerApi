@@ -35,13 +35,12 @@ router.post('/signin', (req, res) => {
     });
 });
 
-// arreglar
 router.post('/guardar', async (req, res) => {
     console.log(req.body);
     const data = req.body;
-    const { firstName, lastName, weight, height, email, password } = data;
+    const { firstName, lastName, weight, height, email, password, gender } = data;
         if (data) {
-            pool.query('INSERT INTO user(firstName, lastName, weight, height, email, password ) VALUES (?,?,?,?,?,?)', [firstName, lastName, weight, height, email, password ], (err, rows) => {
+            pool.query('INSERT INTO user(firstName, lastName, weight, height, email, password, genero) VALUES (?,?,?,?,?,?,?)', [firstName, lastName, weight, height, email, password, gender], (err, _rows) => {
                 if (err) {
                     res.status(500).send({status: 500, message: 'Ha surgido un error en el servidor'});
                     console.log(err);
@@ -50,28 +49,6 @@ router.post('/guardar', async (req, res) => {
                 res.status(200).send({status: 200, message: 'Registro guardado.'});
             })
         }
-        
-    // data.forEach((element) => {
-    //     const { descripcion, isCompleted, usuario_id, id, activo } = element;
-    //     if (element.newData) {
-    //         console.log('Nuevo Registro', element.id);
-    //         pool.query('INSERT INTO todo(descripcion, isCompleted, usuario_id) VALUES (?,?,?)', [descripcion, isCompleted, usuario_id], (err, rows) => {
-    //             if (err) {
-    //                 res.status(500).send({status: 500, message: 'Ha surgido un error en el servidor'});
-    //                 console.log(err);
-    //             }
-    //         })
-    //     }
-    //     pool.query('UPDATE todo SET descripcion = ?, isCompleted = ?, activo = ? WHERE id= ?', [descripcion, isCompleted, activo, id], (err, rows) => {
-    //         console.log(element);
-    //         if (err) {
-    //             res.status(500).send({status: 500, message: 'Ha surgido un error en el servidor'});
-    //             console.log(err);
-    //         }
-    //     })
-    //     console.log('Actualizacion del registro', element.id);
-    // });
-    // res.status(200).send({status: 200, message: 'Registros guardados.'});
 });
 
 router.post('/update', async (req, res) => {
