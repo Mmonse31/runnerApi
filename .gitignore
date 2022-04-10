@@ -1,2 +1,4 @@
 node_modules
 src/keys.js
+yarn.lock
+package-lock.json
